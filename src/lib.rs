@@ -58,7 +58,6 @@
 // `#[derive(...)]` uses `trivial_numeric_casts` and `unused_qualifications`
 // internally.
 #![deny(
-    missing_docs,
     unstable_features, // Used by `internal_benches`
     unused_qualifications,
     variant_size_differences,
@@ -70,7 +69,6 @@
     unused_extern_crates,
     unused_import_braces,
     unused_results,
-    warnings
 )]
 #![no_std]
 #![cfg_attr(feature = "internal_benches", allow(unstable_features), feature(test))]
@@ -105,7 +103,7 @@ pub mod io;
 
 mod cpu;
 pub mod digest;
-mod ec;
+pub mod ec;
 mod endian;
 pub mod error;
 pub mod hkdf;

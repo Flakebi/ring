@@ -34,7 +34,6 @@
     unused_qualifications,
     unused_results,
     variant_size_differences,
-    warnings
 )]
 
 // In the `pregenerate_asm_main()` case we don't want to access (Cargo)

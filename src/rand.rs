@@ -28,7 +28,7 @@
 use crate::error;
 
 /// A secure random number generator.
-pub trait SecureRandom: sealed::SecureRandom {
+pub trait SecureRandom {
     /// Fills `dest` with random bytes.
     fn fill(&self, dest: &mut [u8]) -> Result<(), error::Unspecified>;
 }
