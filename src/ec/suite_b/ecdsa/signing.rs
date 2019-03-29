@@ -14,6 +14,7 @@
 
 //! ECDSA Signatures using the P-256 and P-384 curves.
 
+use alloc::vec::Vec;
 use super::digest_scalar::digest_scalar;
 use crate::{
     arithmetic::montgomery::*,
@@ -93,6 +94,16 @@ impl EcdsaKeyPair {
         ))
     }
 
+    /// Generates a new private key.
+    pub fn generate_private_key(
+        alg: &'static EcdsaSigningAlgorithm, rng: &dyn rand::SecureRandom,
+    ) -> Result<Vec<u8>, error::Unspecified> {
+        let private_key = ec::Seed::generate(alg.curve, rng, cpu::features())?;
+        // NSA Guide Step 8
+        let _ = private_key.compute_public_key()?;
+        Ok(private_key.bytes_less_safe().to_vec())
+    }
+
     /// Constructs an ECDSA key pair by parsing an unencrypted PKCS#8 v1
     /// id-ecPublicKey `ECPrivateKey` key.
     ///
@@ -133,6 +144,20 @@ impl EcdsaKeyPair {
             untrusted::Input::from(public_key),
             cpu::features(),
         )?;
+        Ok(Self::new(alg, key_pair))
+    }
+
+    /// Constructs an ECDSA key pair directly from the big-endian-encoded
+    /// private key.
+    ///
+    /// This is intended for use by code that deserializes keys. It is
+    /// recommended to use `EcdsaKeyPair::from_pkcs8()` (with a PKCS#8-encoded
+    /// key) instead.
+    pub fn from_private_key(
+        alg: &'static EcdsaSigningAlgorithm, private_key: untrusted::Input,
+    ) -> Result<Self, error::KeyRejected> {
+        let key_pair =
+            ec::suite_b::key_pair_from_private_bytes(alg.curve, private_key, cpu::features())?;
         Ok(Self::new(alg, key_pair))
     }
 

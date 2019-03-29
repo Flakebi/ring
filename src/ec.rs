@@ -58,5 +58,5 @@ const SEED_MAX_BYTES: usize = ELEM_MAX_BYTES;
 pub const PKCS8_DOCUMENT_MAX_LEN: usize = 40 + SCALAR_MAX_BYTES + keys::PUBLIC_KEY_MAX_LEN;
 
 pub mod curve25519;
-mod keys;
+pub mod keys;
 pub mod suite_b;
