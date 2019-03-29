@@ -54,6 +54,10 @@ impl Seed {
         Ok(r)
     }
 
+    pub fn from_p256_bytes(bytes: untrusted::Input) -> Result<Seed, error::Unspecified> {
+        Self::from_bytes(&super::suite_b::curve::P256, bytes, cpu::features())
+    }
+
     pub fn bytes_less_safe(&self) -> &[u8] { &self.bytes[..self.curve.elem_scalar_seed_len] }
 
     pub fn compute_public_key(&self) -> Result<PublicKey, error::Unspecified> {

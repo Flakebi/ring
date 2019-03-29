@@ -44,7 +44,7 @@ macro_rules! ecdh {
             ecdh: $ecdh,
         };
 
-        fn $ecdh(
+        pub fn $ecdh(
             out: &mut [u8], my_private_key: &ec::Seed, peer_public_key: untrusted::Input,
         ) -> Result<(), error::Unspecified> {
             ecdh(
