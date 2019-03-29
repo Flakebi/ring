@@ -1,19 +1,16 @@
 [package]
-authors = ["Brian Smith <brian@briansmith.org>"]
+authors = ["Flakebi <flakebi@t-online.de>"]
 build = "build.rs"
-categories = ["cryptography", "no-std"]
-description = "Safe, fast, small crypto using Rust."
+description = "A fork of ring to make some private functionality public."
 documentation = "https://briansmith.org/rustdoc/ring/"
 edition = "2018"
-keywords = ["crypto", "cryptography", "rand", "ECC", "RSA"]
 license-file = "LICENSE"
-name = "ring"
-readme = "doc/link-to-readme.md"
-repository = "https://github.com/briansmith/ring"
+name = "flakebi-ring"
+repository = "https://github.com/Flakebi/ring"
 version = "0.16.15"
 
 # Prevent multiple versions of *ring* from being linked into the same program.
-links = "ring-asm"
+links = "flakebi-ring-asm"
 
 include = [
     "LICENSE",
@@ -291,7 +288,7 @@ include = [
 ]
 
 [lib]
-name = "ring"
+name = "flakebi_ring"
 
 [dependencies]
 untrusted = { version = "0.7.1" }
